@@ -1,6 +1,13 @@
 server:
   port: 8082
 
+logging:
+  config: classpath:logback.xml
+  level:  
+    org: 
+      springframework: 
+        web: INFO,ERROR
+
 spring:
   application: 
     name: spring-eureka-client
