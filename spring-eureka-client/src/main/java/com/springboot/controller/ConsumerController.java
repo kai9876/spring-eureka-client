@@ -1,23 +1,21 @@
 package com.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.service.HelloServiceClient;
+
 @RestController
 public class ConsumerController {
 	
 	@Autowired
-	DiscoveryClient discoveryClient;
+	HelloServiceClient helloServiceClient;
+	
 	@GetMapping("/hello")
 	public String hello(String name) {
-		ServiceInstance serviceInstance=discoveryClient.getLocalServiceInstance();
-		serviceInstance.getHost();
-		serviceInstance.getPort();
 		return "hello 1 " + name;
 	}
 
@@ -29,5 +27,10 @@ public class ConsumerController {
 	@GetMapping("/hello2")
 	public String hello2(@RequestHeader String name, @RequestHeader int age) {
 		return "hello 1 " + name + "  age:" + age;
+	}
+	
+	@GetMapping(value = "/testPg")
+	public String testPg() {
+		return helloServiceClient.testPg();
 	}
 }
